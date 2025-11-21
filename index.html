@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yang's Arcade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            font-family: 'Space Grotesk', sans-serif;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass-card {
+            background: rgba(30, 30, 35, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.3);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            transition: opacity 0.2s;
+        }
+        .play-btn:hover { opacity: 0.9; }
+
+        .code-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #cbd5e1;
+            transition: all 0.2s;
+        }
+        .code-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="w-full p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <div class="text-2xl font-bold tracking-tighter">YANG'S <span class="text-indigo-500">ARCADE</span></div>
+        <div class="flex gap-4 items-center">
+            <a id="mainRepoLink" href="#" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                <i class="fab fa-github text-xl"></i> <span class="hidden sm:inline ml-2">GitHub Repo</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="text-center py-20 px-4">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+            Level Up Your <span class="gradient-text">Web Experience</span>
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            A curated collection of AI-generated browser games. <br>
+            Built for fun, designed for the future.
+        </p>
+    </header>
+
+    <!-- Game Grid Container -->
+    <main class="flex-grow px-4 pb-20">
+        <div id="gameGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            <!-- Games will be injected here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-gray-800 py-8 text-center">
+        <p class="text-gray-500">© 2025 Yang's Arcade. Built with Gemini.</p>
+    </footer>
+
+    <!-- CONFIGURATION SCRIPT -->
+    <script>
+        // ==========================================
+        // 1. YOUR GITHUB INFO
+        // ==========================================
+        const GITHUB_USERNAME = "YOUR_USERNAME_HERE"; // Change this
+        const REPO_NAME = "YOUR_REPO_NAME_HERE";      // Change this
+        const mainRepoUrl = `https://github.com/${GITHUB_USERNAME}/${REPO_NAME}`;
+        document.getElementById('mainRepoLink').href = mainRepoUrl;
+
+        // ==========================================
+        // 2. GAME LIST (Edit this to Add/Remove/Reorder)
+        // ==========================================
+        const gamesList = [
+            {
+                title: "Neon Void",
+                desc: "A fast-paced asteroid shooter. Survive the waves.",
+                icon: "🚀",
+                file: "neon-void-shooter.html"
+            },
+            {
+                title: "8-Bit Tic-Tac-Toe",
+                desc: "Battle an unbeatable AI in this CRT-style classic.",
+                icon: "❌",
+                file: "retro-tictactoe.html"
+            },
+            {
+                title: "Cyber Runner",
+                desc: "An endless runner set in a cyberpunk city.",
+                icon: "🦖",
+                file: "cyberpunk-dino-runner.html"
+            },
+            {
+                title: "Block Breaker",
+                desc: "Classic arcade paddle action with 5 levels.",
+                icon: "🧱",
+                file: "brick-breaker.html"
+            },
+            {
+                title: "Visionary",
+                desc: "AI Art Quiz. Guess the prompt! (Requires API Key)",
+                icon: "🎨",
+                file: "visionary-quiz.html"
+            },
+            {
+                title: "Echo Farm",
+                desc: "Sound-based memory game with 25 levels.",
+                icon: "🐮",
+                file: "echo-farm.html"
+            },
+            {
+                title: "RPS Battle",
+                desc: "Rock, Paper, Scissors vs CPU with animations.",
+                icon: "✊",
+                file: "rps-battle.html"
+            },
+            {
+                title: "Cosmic Hangman",
+                desc: "Space-themed word guessing game.",
+                icon: "👩‍🚀",
+                file: "cosmic-hangman.html"
+            },
+            {
+                title: "Ghost Ship",
+                desc: "Infinite text adventure. (Requires API Key)",
+                icon: "👻",
+                file: "ghost-ship-adventure.html"
+            },
+            {
+                title: "Chef Chaos",
+                desc: "Absurd AI recipe generator. (Requires API Key)",
+                icon: "👨‍🍳",
+                file: "chef-chaos.html"
+            },
+            {
+                title: "Quiz Smith",
+                desc: "Generate quizzes on any topic. (Requires API Key)",
+                icon: "📝",
+                file: "quiz-smith.html"
+            }
+        ];
+
+        // ==========================================
+        // 3. RENDER LOGIC (Do not touch usually)
+        // ==========================================
+        const gameGrid = document.getElementById('gameGrid');
+
+        gamesList.forEach(game => {
+            const card = document.createElement('div');
+            card.className = 'glass-card rounded-2xl overflow-hidden flex flex-col';
+            
+            card.innerHTML = `
+                <div class="h-40 bg-gray-900 flex items-center justify-center text-6xl border-b border-gray-800">
+                    ${game.icon}
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-2xl font-bold mb-2">${game.title}</h3>
+                    <p class="text-gray-400 text-sm mb-6 flex-grow">${game.desc}</p>
+                    <div class="flex gap-3 mt-auto">
+                        <a href="${game.file}" class="play-btn flex-1 py-3 rounded-xl font-bold text-center">Play</a>
+                        <a href="${mainRepoUrl}/blob/main/${game.file}" target="_blank" class="code-btn px-4 py-3 rounded-xl font-bold text-center" title="View Code">
+                            <i class="fas fa-code"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+            gameGrid.appendChild(card);
+        });
+    </script>
+
+</body>
+</html>
